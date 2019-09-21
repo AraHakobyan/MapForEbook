@@ -36,5 +36,6 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
     }
 
     override fun onMapReady(map: GoogleMap?) {
+
     }
 }
