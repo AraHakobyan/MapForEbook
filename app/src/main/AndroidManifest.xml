@@ -4,6 +4,7 @@
     package="am.example.mapforebook">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -26,7 +27,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAnxykK5Nn7gScV4M_3nHeweXZR5rBLem0"/>
+            android:value="AIzaSyDBPsVO2zc4yXHLMUp2kkw8v1Tjtxclts0"/>
     </application>
 
 </manifest>
