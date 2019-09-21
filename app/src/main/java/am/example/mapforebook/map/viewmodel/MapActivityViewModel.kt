@@ -1,5 +1,7 @@
 package am.example.mapforebook.map.viewmodel
 
+import android.location.Location
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
@@ -7,5 +9,5 @@ import androidx.lifecycle.ViewModel
  * company IDT
  */
 class MapActivityViewModel : ViewModel() {
-
+    val currentLocationLiveData: MutableLiveData<Location> = MutableLiveData()
 }

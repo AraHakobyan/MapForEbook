@@ -27,7 +27,8 @@ dependencies {
 
     def nav_version = "2.1.0"
     def map_version = "17.0.0"
-    def livecycle_version = "1.1.1"
+    def lifecycle_version = "1.1.1"
+    def play_service_version = "17.0.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -38,10 +39,13 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "com.google.android.gms:play-services-maps:$map_version"
-    implementation "android.arch.lifecycle:extensions:$livecycle_version"
-    implementation "android.arch.lifecycle:viewmodel:$livecycle_version"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation "com.google.android.gms:play-services-location:$play_service_version"
+    implementation "com.google.android.gms:play-services-maps:$play_service_version"
 
 }
