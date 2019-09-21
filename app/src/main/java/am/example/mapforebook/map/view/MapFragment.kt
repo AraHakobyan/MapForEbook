@@ -3,6 +3,8 @@ package am.example.mapforebook.map.view
 import am.example.mapforebook.R
 import am.example.mapforebook.base.view.BaseFragment
 import am.example.mapforebook.core.extencions.toLatLng
+import am.example.mapforebook.map.repository.DownloadTask
+import am.example.mapforebook.map.repository.createRoadUrl
 import am.example.mapforebook.map.viewmodel.MapActivityViewModel
 import am.example.mapforebook.map.viewmodel.MapFragmentViewModel
 import android.location.Location
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.map_fragment_layout.*
 
 /**
@@ -30,7 +33,7 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
             this,
             Observer(::onCurrentLocationChanged)
         )
-        fragmentViewModel.selectedLocationLiveData.observe(this, Observer {
+        fragmentViewModel.selectedLatLng.observe(this, Observer {
             createRoad(activityViewModel.currentLocationLiveData.value, it)
         })
     }
@@ -60,6 +63,9 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
             isMyLocationEnabled = true
             setOnMyLocationButtonClickListener(this@MapFragment)
             map = this
+            setOnMapLongClickListener {
+                fragmentViewModel.selectedLatLng.postValue(it)
+            }
         }
         activityViewModel.currentLocationLiveData.value?.let(::showCurrentLocation)
     }
@@ -73,6 +79,10 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
         map?.animateCamera(CameraUpdateFactory.newLatLngZoom(location.toLatLng(), 15f))
     }
 
-    private fun createRoad(currentLocation: Location?, selectedLocation: Location) {
+    private fun createRoad(currentLocation: Location?, selectedLatLng: LatLng) {
+        currentLocation?.let {
+            var downloadTask: DownloadTask = DownloadTask()
+            downloadTask.execute(createRoadUrl(it.toLatLng(), selectedLatLng))
+        }
     }
 }

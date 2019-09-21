@@ -47,4 +47,9 @@ dependencies {
 
     implementation "com.google.android.gms:play-services-location:$play_service_version"
     implementation "com.google.android.gms:play-services-maps:$play_service_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.squareup"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.squareup"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.squareup"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.squareup_logging"
 }
