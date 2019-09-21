@@ -74,6 +74,5 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
     }
 
     private fun createRoad(currentLocation: Location?, selectedLocation: Location) {
-
     }
 }
