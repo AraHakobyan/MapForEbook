@@ -18,8 +18,8 @@ abstract class BaseFragment<A: ViewModel, F: ViewModel> : Fragment() {
     lateinit var activityViewModel: A
     lateinit var fragmentViewModel: F
 
-    var baseActivity: BaseActivity? = null
-        get() = requireActivity() as BaseActivity
+    var baseActivity: BaseActivity<*>? = null
+        get() = requireActivity() as BaseActivity<*>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

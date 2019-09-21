@@ -2,9 +2,13 @@ package am.example.mapforebook.map.view
 
 import am.example.mapforebook.R
 import am.example.mapforebook.base.view.BaseFragment
+import am.example.mapforebook.core.extencions.toLatLng
 import am.example.mapforebook.map.viewmodel.MapActivityViewModel
 import am.example.mapforebook.map.viewmodel.MapFragmentViewModel
+import android.location.Location
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.map_fragment_layout.*
@@ -13,12 +17,22 @@ import kotlinx.android.synthetic.main.map_fragment_layout.*
  * Created by Ara Hakobyan on 9/21/19.
  * company IDT
  */
-class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), OnMapReadyCallback {
+class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), OnMapReadyCallback,
+    GoogleMap.OnMyLocationButtonClickListener {
+
+    private var map: GoogleMap? = null
 
     override fun onCreateView(): Int = R.layout.map_fragment_layout
 
     override fun setupView() {
         setupMapView()
+        activityViewModel.currentLocationLiveData.observe(
+            this,
+            Observer(::onCurrentLocationChanged)
+        )
+        fragmentViewModel.selectedLocationLiveData.observe(this, Observer {
+            createRoad(activityViewModel.currentLocationLiveData.value, it)
+        })
     }
 
     override fun initFragmentViewModel() {
@@ -26,7 +40,12 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
     }
 
     override fun initActivityViewModel() {
-        activityViewModel = ViewModelProviders.of(requireActivity()).get(MapActivityViewModel::class.java)
+        activityViewModel =
+            ViewModelProviders.of(requireActivity()).get(MapActivityViewModel::class.java)
+    }
+
+    private fun onCurrentLocationChanged(location: Location) {
+        map?.let { showCurrentLocation(location) }
     }
 
     private fun setupMapView() {
@@ -35,6 +54,26 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: GoogleMap?) {
+    override fun onMapReady(googleMap: GoogleMap?) {
+        googleMap ?: return
+        googleMap.run {
+            isMyLocationEnabled = true
+            setOnMyLocationButtonClickListener(this@MapFragment)
+            map = this
+        }
+        activityViewModel.currentLocationLiveData.value?.let(::showCurrentLocation)
+    }
+
+    override fun onMyLocationButtonClick(): Boolean {
+        showCurrentLocation(activityViewModel.currentLocationLiveData.value?: return true)
+        return true
+    }
+
+    private fun showCurrentLocation(location: Location) {
+        map?.animateCamera(CameraUpdateFactory.newLatLngZoom(location.toLatLng(), 15f))
+    }
+
+    private fun createRoad(currentLocation: Location?, selectedLocation: Location) {
+
     }
 }

@@ -10,5 +10,5 @@ import androidx.lifecycle.ViewModel
  */
 class MapFragmentViewModel : ViewModel() {
 
-    val locationLiveData: MutableLiveData<Location> = MutableLiveData()
+    val selectedLocationLiveData: MutableLiveData<Location> = MutableLiveData()
 }
