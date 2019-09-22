@@ -26,9 +26,9 @@ abstract class BaseMapActivity : BaseActivity<MapActivityViewModel>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         checkPermission()
         super.onCreate(savedInstanceState)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     @SuppressLint("MissingPermission")

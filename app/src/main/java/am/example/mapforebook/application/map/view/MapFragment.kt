@@ -81,7 +81,7 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
 
     private fun drawRouteOnMap(legs: LegsItemModel) {
         val latLngList: MutableList<LatLng> = mutableListOf()
-        latLngList.add(fragmentViewModel.startLocationLiveData.value!!)
+        latLngList.add(fragmentViewModel.startLocationLiveData.value ?: return)
         legs.steps.forEach {
             latLngList.addAll(PolyUtil.decode(it.polyline.points))
         }
