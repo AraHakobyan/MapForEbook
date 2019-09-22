@@ -11,6 +11,8 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import android.content.Intent
+import android.provider.Settings
 
 /**
  * Created by Ara Hakobyan on 9/22/19.
@@ -26,6 +28,7 @@ abstract class BaseMapActivity : BaseActivity<MapActivityViewModel>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        turnGPSOn()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         checkPermission()
         super.onCreate(savedInstanceState)
@@ -75,6 +78,15 @@ abstract class BaseMapActivity : BaseActivity<MapActivityViewModel>() {
                 location = it
                 activityViewModel.currentLocationLiveData.postValue(it)
             }
+        }
+    }
+
+    private fun turnGPSOn() {
+        val provider =
+            Settings.Secure.getString(contentResolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED)
+
+        if (!provider.contains("gps")) {
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
         }
     }
 }

@@ -40,20 +40,34 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
     override fun setupView() {
         setupMapView()
         activityViewModel.currentLocationLiveData.observe(
-            this,
-            Observer(::onCurrentLocationChanged)
+            this, Observer {
+                it ?: return@Observer
+                onCurrentLocationChanged(it)
+            }
         )
         fragmentViewModel.selectedLatLng.observe(this, Observer {
+            it ?: return@Observer
             createRoad(activityViewModel.currentLocationLiveData.value ?: return@Observer, it)
         })
 
-        fragmentViewModel.stepsLiveData.observe(this, Observer{
-            addMarkers(fragmentViewModel.startLocationLiveData.value!!,fragmentViewModel.selectedLatLng.value!!, it.startAddress, it.endAddress )
+        fragmentViewModel.stepsLiveData.observe(this, Observer {
+            it ?: return@Observer
+            addMarkers(
+                fragmentViewModel.startLocationLiveData.value!!,
+                fragmentViewModel.selectedLatLng.value!!,
+                it.startAddress,
+                it.endAddress
+            )
             drawRouteOnMap(it)
         })
     }
 
-    private fun addMarkers(currentLocation: LatLng, selectedLatLng: LatLng, startAddress: String, endAddress: String) {
+    private fun addMarkers(
+        currentLocation: LatLng,
+        selectedLatLng: LatLng,
+        startAddress: String,
+        endAddress: String
+    ) {
         map?.run {
             clear()
             addMarker(
@@ -136,7 +150,8 @@ class MapFragment : BaseFragment<MapActivityViewModel, MapFragmentViewModel>(), 
     }
 
     private fun createRoad(currentLocation: Location, selectedLatLng: LatLng) {
-        fragmentViewModel.startLocationLiveData.value = LatLng(currentLocation.latitude, currentLocation.longitude)
+        fragmentViewModel.startLocationLiveData.value =
+            LatLng(currentLocation.latitude, currentLocation.longitude)
         fragmentViewModel.getRoute(
             currentLocation.toLatLng(),
             selectedLatLng,
