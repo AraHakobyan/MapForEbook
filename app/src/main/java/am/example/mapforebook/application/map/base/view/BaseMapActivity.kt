@@ -1,7 +1,7 @@
-package am.example.mapforebook.map.base.view
+package am.example.mapforebook.application.map.base.view
 
-import am.example.mapforebook.base.view.BaseActivity
-import am.example.mapforebook.map.viewmodel.MapActivityViewModel
+import am.example.mapforebook.application.base.view.BaseActivity
+import am.example.mapforebook.application.map.viewmodel.MapActivityViewModel
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -26,9 +26,9 @@ abstract class BaseMapActivity : BaseActivity<MapActivityViewModel>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        checkPermission()
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        checkPermission()
     }
 
     @SuppressLint("MissingPermission")

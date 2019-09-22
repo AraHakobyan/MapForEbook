@@ -1,4 +1,4 @@
-package am.example.mapforebook.map.viewmodel
+package am.example.mapforebook.application.map.viewmodel
 
 import android.location.Location
 import androidx.lifecycle.MutableLiveData

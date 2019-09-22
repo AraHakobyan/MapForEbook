@@ -3,14 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/introFragment">
 
-    <fragment android:id="@+id/mapFragment"
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="am.example.mapforebook.application.map.view.MapFragment"
         android:label="MapFragment"
-        android:name="am.example.mapforebook.map.view.MapFragment"
         tools:layout="@layout/map_fragment_layout">
 
     </fragment>
 
-
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="am.example.mapforebook.application.map.view.IntroFragment"
+        android:label="IntroFragment"
+        tools:layout="@layout/intro_fragment_layout">
+        <action
+            android:id="@+id/to_map_fragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 </navigation>

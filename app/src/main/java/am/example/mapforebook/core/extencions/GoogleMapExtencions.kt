@@ -8,3 +8,5 @@ import com.google.android.gms.maps.model.LatLng
  * company IDT
  */
 fun Location.toLatLng(): LatLng = LatLng(latitude, longitude)
+
+fun LatLng.asStringFormat(): String = "$latitude,$longitude"

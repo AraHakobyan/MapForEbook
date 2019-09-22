@@ -1,6 +1,5 @@
-package am.example.mapforebook.base.view
+package am.example.mapforebook.application.base.view
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.FragmentActivity

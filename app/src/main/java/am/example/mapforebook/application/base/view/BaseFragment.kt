@@ -1,4 +1,4 @@
-package am.example.mapforebook.base.view
+package am.example.mapforebook.application.base.view
 
 import android.content.Context
 import android.os.Bundle

@@ -61,6 +61,7 @@ private fun provideRetrofit(
     gsonConverterFactory: GsonConverterFactory,
     adapterFactory: RxJava2CallAdapterFactory
 ): Retrofit = Retrofit.Builder()
+    .baseUrl("https://maps.googleapis.com/maps/api/")
     .addConverterFactory(gsonConverterFactory)
     .addCallAdapterFactory(adapterFactory)
     .client(okhttpClient)

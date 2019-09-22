@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextViewStyleIntro" parent="Widget.AppCompat.TextView" >
+        <item name="android:textSize">@dimen/text_size_intro</item>
+        <item name="android:textColor">@color/text_color_1</item>
+    </style>
+
+    <dimen name="text_size_intro">20sp</dimen>
 </resources>
