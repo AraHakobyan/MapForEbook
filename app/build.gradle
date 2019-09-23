@@ -20,16 +20,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-
     }
 }
 
 dependencies {
-
-    def nav_version = "2.1.0"
-    def map_version = "17.0.0"
-    def lifecycle_version = "1.1.1"
-    def play_service_version = "17.0.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -39,17 +33,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation "com.google.android.gms:play-services-maps:$map_version"
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
+    implementation "com.google.android.gms:play-services-maps:$rootProject.map_version"
+    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle_version"
+    implementation "android.arch.lifecycle:viewmodel:$rootProject.lifecycle_version"
 
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.nav_version"
 
     implementation 'com.google.maps.android:android-maps-utils:0.4'
-    implementation "com.google.android.gms:play-services-location:$play_service_version"
-    implementation "com.google.android.gms:play-services-maps:$play_service_version"
-    implementation "com.google.android.gms:play-services-maps:$play_service_version"
+    implementation "com.google.android.gms:play-services-location:$rootProject.play_service_version"
+    implementation "com.google.android.gms:play-services-maps:$rootProject.play_service_version"
+    implementation "com.google.android.gms:play-services-maps:$rootProject.play_service_version"
 
     implementation "com.squareup.retrofit2:retrofit:$rootProject.squareup"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.squareup"
